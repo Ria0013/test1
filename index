@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Shy Clan</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#081221;
+    overflow:hidden;
+    color:white;
+    font-family:"Noto Sans KR",sans-serif;
+}
+
+/* --------------------- */
+/* 움직이는 배경 */
+/* --------------------- */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+
+    background:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+
+    background-size:32px 32px;
+
+    animation:gridMove 18s linear infinite;
+}
+
+@keyframes gridMove{
+
+from{
+transform:translateY(0px);
+}
+
+to{
+transform:translateY(32px);
+}
+
+}
+
+.pixel{
+
+position:fixed;
+width:6px;
+height:6px;
+background:#8fdfff;
+opacity:.3;
+
+animation:float 20s linear infinite;
+
+}
+
+@keyframes float{
+
+0%{
+
+transform:translateY(100vh);
+
+}
+
+100%{
+
+transform:translateY(-120vh);
+
+}
+
+}
+
+/* --------------------- */
+/* 화면 */
+/* --------------------- */
+
+.screen{
+
+position:absolute;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+flex-direction:column;
+
+padding:30px;
+
+transition:.6s;
+
+}
+
+.hidden{
+
+opacity:0;
+pointer-events:none;
+
+}
+
+/* --------------------- */
+
+.title{
+
+font-family:"Press Start 2P",cursive;
+
+font-size:42px;
+
+color:#86d9ff;
+
+text-shadow:
+
+0 0 12px #63cfff,
+0 0 28px #63cfff;
+
+margin-bottom:18px;
+
+text-align:center;
+
+}
+
+.subtitle{
+
+font-size:20px;
+
+margin-bottom:40px;
+
+color:#d9f6ff;
+
+}
+
+.welcome{
+
+font-size:22px;
+
+margin-bottom:40px;
+
+text-align:center;
+
+line-height:1.7;
+
+}
+
+/* --------------------- */
+
+.startButton{
+
+background:#6dcfff;
+
+border:none;
+
+color:#00182c;
+
+padding:
+
+18px
+70px;
+
+font-size:20px;
+
+font-weight:bold;
+
+border-radius:12px;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+.startButton:hover{
+
+transform:translateY(-3px);
+
+background:#b2ecff;
+
+box-shadow:
+
+0 0 25px #6fd8ff;
+
+}
+
+.startButton:active{
+
+transform:translateY(2px);
+
+}
+
+/* --------------------- */
+
+.small{
+
+margin-top:30px;
+
+font-size:13px;
+
+opacity:.6;
+
+}
+
+/* --------------------- */
+/* 로딩 */
+/* --------------------- */
+
+#loading{
+
+font-family:"Press Start 2P";
+
+text-align:center;
+
+line-height:2.2;
+
+}
+
+.loadingBar{
+
+margin-top:30px;
+
+width:320px;
+
+height:20px;
+
+border:
+
+3px solid #7fdfff;
+
+}
+
+.progress{
+
+width:0%;
+
+height:100%;
+
+background:#7fdfff;
+
+transition:.15s;
+
+}
+
+.percent{
+
+margin-top:15px;
+
+font-size:15px;
+
+}
+
+/* --------------------- */
+/* 메인 */
+/* --------------------- */
+
+#main{
+
+padding:50px;
+
+align-items:flex-start;
+
+justify-content:flex-start;
+
+}
+
+.top{
+
+width:100%;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:flex-start;
+
+}
+
+.logo{
+
+font-family:"Press Start 2P";
+
+font-size:30px;
+
+color:#8fdfff;
+
+line-height:1.8;
+
+}
+
+.logo span{
+
+font-family:"Noto Sans KR";
+
+font-size:15px;
+
+display:block;
+
+color:white;
+
+margin-top:10px;
+
+}
+
+.status{
+
+text-align:right;
+
+font-size:14px;
+
+line-height:1.9;
+
+}
+
+.online{
+
+color:#63ff9d;
+
+font-weight:bold;
+
+}
+
+.menu{
+
+margin-top:50px;
+
+width:100%;
+
+display:flex;
+
+flex-direction:column;
+
+gap:18px;
+
+}
+
+.menu button{
+
+background:#112743;
+
+border:2px solid #64c8ff;
+
+color:white;
+
+padding:18px;
+
+font-size:18px;
+
+text-align:left;
+
+border-radius:12px;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.menu button:hover{
+
+background:#1b4677;
+
+transform:translateX(8px);
+
+box-shadow:0 0 18px rgba(100,200,255,.4);
+
+}
+
+.menu button:active{
+
+transform:translateX(3px);
+
+}
+
+.footer{
+
+margin-top:auto;
+
+width:100%;
+
+padding-top:40px;
+
+font-size:13px;
+
+line-height:1.9;
+
+color:#d7e9ff;
+
+opacity:.85;
+
+border-top:1px solid rgba(255,255,255,.15);
+
+}
+
+.footer strong{
+
+color:#86d9ff;
+
+}
+
+@media(max-width:768px){
+
+.title{
+
+font-size:28px;
+
+}
+
+.subtitle{
+
+font-size:16px;
+
+}
+
+.logo{
+
+font-size:20px;
+
+}
+
+.top{
+
+flex-direction:column;
+
+gap:30px;
+
+}
+
+.status{
+
+text-align:left;
+
+}
+
+.loadingBar{
+
+width:260px;
+
+}
+
+.menu button{
+
+font-size:16px;
+
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="pixel" style="left:8%;animation-delay:0s;"></div>
+<div class="pixel" style="left:18%;animation-delay:4s;"></div>
+<div class="pixel" style="left:30%;animation-delay:7s;"></div>
+<div class="pixel" style="left:42%;animation-delay:2s;"></div>
+<div class="pixel" style="left:56%;animation-delay:8s;"></div>
+<div class="pixel" style="left:70%;animation-delay:5s;"></div>
+<div class="pixel" style="left:82%;animation-delay:9s;"></div>
+<div class="pixel" style="left:94%;animation-delay:3s;"></div>
+
+<!-- 시작 화면 -->
+
+<section id="start" class="screen">
+
+<div class="title">
+SHY CLAN
+</div>
+
+<div class="subtitle">
+샤이 클랜 사이트
+</div>
+
+<div class="welcome">
+샤이 클랜에 오신 걸 환영합니다!
+</div>
+
+<button class="startButton" onclick="startGame()">
+START
+</button>
+
+<div class="small">
+Press START to enter the Shy Clan System.
+</div>
+
+</section>
+
+<!-- 로딩 -->
+
+<section id="loading" class="screen hidden">
+
+<div>PRESS START</div>
+
+<div style="margin-top:40px;">
+Loading...
+</div>
+
+<div class="loadingBar">
+
+<div class="progress" id="progress"></div>
+
+</div>
+
+<div class="percent" id="percent">
+0%
+</div>
+
+<div style="margin-top:40px;">
+Welcome, Player.
+</div>
+
+</section>
+
+<!-- 메인 -->
+
+<section id="main" class="screen hidden">
+
+<div class="top">
+
+<div class="logo">
+
+SHY CLAN
+
+<span>샤이 클랜 사이트에 오신 걸 환영합니다!</span>
+
+</div>
+
+<div class="status">
+
+<div class="online">
+ONLINE ●
+</div>
+
+Player : Guest<br>
+Server : KR<br>
+Version : 1.0
+
+</div>
+
+</div>
+
+<div class="menu">
+
+<button onclick="window.open('https://naver.me/FgEA9GTX?tc=shared_link')">
+▶ 클랜 모집글
+</button>
+
+<button onclick="window.open('https://cafe.naver.com/onimobile/17138879')">
+▶ 아트부 모집글
+</button>
+
+<button onclick="window.open('https://cafe.naver.com/onimobile/17146801')">
+▶ 아트부 라인업
+</button>
+
+<button onclick="window.open('https://open.kakao.com/o/gcAtxGWh')">
+▶ 클랜 가입처
+</button>
+
+<button onclick="window.open('https://open.kakao.com/o/s3YNW7ni')">
+▶ 아트부 가입처
+</button>
+
+<button onclick="window.open('https://open.kakao.com/o/gOzssb3h')">
+▶ 신고처
+</button>
+
+</div>
+
+<div class="footer">
+
+<strong>Shy</strong><br>
+Since 2022.02.25<br><br>
+
+Lv. 15 | EXP +27% | MIN +25% | CRI +1.5%<br>
+31시즌 22위<br>
+현생 중시 클랜<br><br>
+
+<strong>마스터</strong> 포포무<br>
+<strong>부마스터</strong> 연 · 무머 · 유새<br>
+<strong>아트부장</strong> 뀨닌 · morii<br>
+<strong>간부</strong> 크나<br><br>
+
+사이트 제작 <strong>LR. 리아</strong>
+
+</div>
+
+</section>
+
+<script>
+
+const startScreen=document.getElementById("start");
+const loadingScreen=document.getElementById("loading");
+const mainScreen=document.getElementById("main");
+
+const progress=document.getElementById("progress");
+const percent=document.getElementById("percent");
+
+function startGame(){
+
+startScreen.classList.add("hidden");
+
+loadingScreen.classList.remove("hidden");
+
+let value=0;
+
+const timer=setInterval(()=>{
+
+value+=2;
+
+progress.style.width=value+"%";
+
+percent.innerText=value+"%";
+
+if(value>=100){
+
+clearInterval(timer);
+
+setTimeout(()=>{
+
+loadingScreen.classList.add("hidden");
+
+mainScreen.classList.remove("hidden");
+
+},600);
+
+}
+
+},40);
+
+}
+
+</script>
+
+</body>
+</html>
