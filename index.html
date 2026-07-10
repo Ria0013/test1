@@ -21,7 +21,6 @@
 
 body{
     background:#081221;
-    overflow:hidden;
     color:white;
     font-family:"Noto Sans KR",sans-serif;
 }
@@ -274,7 +273,8 @@ font-size:15px;
     padding:50px;
     align-items:flex-start;
     justify-content:flex-start;
-    overflow-y:auto;
+    overflow-y:auto;   /* 세로 스크롤 */
+    overflow-x:hidden; /* 가로 스크롤 방지 */
 }
 
 .top{
@@ -495,7 +495,10 @@ START
 
 <div class="small">
 Press START to enter the Shy Clan System.
-제작자   LR. 리아
+</div>
+
+<div class="small" style="margin-top:12px; opacity:0.45;">
+Site by <strong>LR. 리아</strong>
 </div>
 
 </section>
